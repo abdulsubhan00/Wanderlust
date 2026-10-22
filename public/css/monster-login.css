@@ -1,0 +1,182 @@
+
+/* Page layout */
+.auth-page {
+    min-height: 72vh;
+    padding: 35px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at 15% 15%, #f0e9ff 0, transparent 40%),
+        radial-gradient(ellipse at 85% 85%, #d9fbf2 0, transparent 38%),
+        #fbfaff;
+}
+
+.auth-shell {
+    width: min(100%, 1100px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Illustration area */
+.monster-scene {
+    text-align: center;
+    min-width: 0;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.monster-heading h2 {
+    color: #292441;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.monster-heading p,
+.monster-caption {
+    color: #77718d;
+}
+
+.monster-heading p {
+    margin-bottom: 20px;
+}
+
+.monster-art {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.svg-monster {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: svg-monster-float 4s ease-in-out infinite;
+}
+
+.svg-monster:nth-of-type(2) {
+    animation-delay: -1s;
+}
+
+.svg-monster:nth-of-type(3) {
+    animation-delay: -2s;
+}
+
+.svg-monster:nth-of-type(4) {
+    animation-delay: -0.7s;
+}
+
+.svg-pupil {
+    transition: none;
+}
+
+.monster-caption {
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+
+/* Login and signup card */
+.auth-panel {
+    width: 100%;
+    padding: 34px;
+    background: #fff;
+    border: 1px solid #eeeaf7;
+    border-radius: 24px;
+    box-shadow: 0 18px 55px rgb(63 44 100 / 9%);
+}
+
+.auth-panel h1 {
+    color: #292441;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.auth-panel .form-control {
+    border-radius: 10px;
+    padding: 11px 13px;
+}
+
+.auth-panel .btn {
+    border-radius: 10px;
+    padding: 10px 22px;
+}
+
+/* Floating animation */
+@keyframes svg-monster-float {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -4px;
+    }
+}
+
+/* Responsive layout */
+@media (max-width: 760px) {
+    .auth-page {
+        padding: 20px 14px 36px;
+    }
+
+    .auth-shell {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-width: 480px;
+    }
+
+    .monster-scene {
+        padding: 10px 0;
+    }
+
+    .monster-heading p {
+        margin-bottom: 10px;
+    }
+
+    .monster-art {
+        max-width: 390px;
+    }
+
+    .auth-panel {
+        padding: 24px 20px;
+    }
+
+    .auth-panel h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .svg-monster {
+        animation: none;
+    }
+}
+
+
+/* Make the authentication background full width */
+.auth-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Remove horizontal spacing from the main layout container */
+body:has(.auth-page) main,
+body:has(.auth-page) .container,
+body:has(.auth-page) .container-fluid {
+    max-width: none;
+}
+
+/* Keep the content centred while the background fills the screen */
+.auth-shell {
+    width: min(100%, 1100px);
+    margin-inline: auto;
+}

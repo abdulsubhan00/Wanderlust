@@ -1,0 +1,75 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<div class="auth-page">
+    <div class="auth-shell">
+
+        <!-- Colourful animated monsters -->
+        <%- include("../includes/monster-mascots.ejs") %>
+
+        <!-- Login form -->
+        <section class="auth-panel">
+            <h1>Login</h1>
+
+            <p class="text-secondary mb-4">
+                Welcome back! Continue your journey with Wanderlust.
+            </p>
+
+            <form action="/login" method="post"
+                  class="needs-validation" novalidate>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        <b>Username</b>
+                    </label>
+
+                    <input
+                        name="username"
+                        id="username"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                    <div class="invalid-feedback">
+                        Username is Mandatory
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <b>Password</b>
+                    </label>
+
+                    <input
+                        name="password"
+                        id="password"
+                        type="password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                    <div class="invalid-feedback">
+                        Password is Mandatory
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100 mt-2"
+                        type="submit">
+                    Login
+                </button>
+            </form>
+
+            <p class="text-center mt-4 mb-0">
+                New to Wanderlust?
+                <a href="/signup"
+                   class="text-success fw-semibold text-decoration-none">
+                    Sign up
+                </a>
+            </p>
+        </section>
+
+    </div>
+</div>
