@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const initdata = require("./data.js");
 const listing=require("../models/listing.js");
+require("dotenv").config();
 
-let MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
+let MONGO_URL=process.env.ATLAS_URL;
 
 async function main(){
   await mongoose.connect(MONGO_URL);
@@ -21,5 +22,23 @@ const initDB = async () =>{
   console.log("Data was initialized");
 };
 
-initDB();
+async function start() {
+  try {
+    if (!MONGO_URL) {
+      throw new Error("ATLAS_URL is missing from .env");
+    }
+
+    await main();
+    await initDB();
+
+  } 
+  catch (err) {
+    console.error("Initialization failed:", err);
+  } 
+  finally {
+    await mongoose.connection.close();
+  }
+}
+
+start();
 
