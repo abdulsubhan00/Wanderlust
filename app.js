@@ -29,7 +29,7 @@ async function main(){
 main().then((res)=>{
     console.log("Connected to DB");
 }).catch((err)=>{
-    console.log("unable to connect with DB");
+    console.log("Database connection error:", err);
 });
 
 app.engine("ejs",ejsMate);
