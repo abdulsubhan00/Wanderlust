@@ -1,44 +1,46 @@
+require("dotenv").config({ path: "../.env" });
+
 const mongoose = require("mongoose");
 const initdata = require("./data.js");
-const listing=require("../models/listing.js");
-require("dotenv").config();
+const Listing = require("../models/listing.js");
 
-let MONGO_URL=process.env.ATLAS_URL;
+const MONGO_URL = process.env.ATLAS_URL;
 
-async function main(){
-  await mongoose.connect(MONGO_URL);
-}
+const initDB = async () => {
+    await Listing.deleteMany({});
 
-main().then((res)=>{
-  console.log("Connected to DB");
-}).catch((err)=>{
-  console.log("unable to connect with DB");
-});
+    initdata.data = initdata.data.map((obj) => ({
+        ...obj,
+        owner: "6ada4b58ffdb95d7b2c9187c"
+    }));
 
-const initDB = async () =>{
-  await listing.deleteMany({});
-  initdata.data = initdata.data.map((obj)=>({...obj,owner:"6ada4b58ffdb95d7b2c9187c"}));
-  await listing.insertMany(initdata.data);
-  console.log("Data was initialized");
+    await Listing.insertMany(initdata.data);
+
+    console.log("Data was initialized successfully");
 };
 
 async function start() {
-  try {
-    if (!MONGO_URL) {
-      throw new Error("ATLAS_URL is missing from .env");
+    try {
+        if (!MONGO_URL) {
+            throw new Error("ATLAS_URL is missing from .env");
+        }
+
+        console.log("Attempting to connect to Atlas...");
+
+        await mongoose.connect(MONGO_URL, {
+          serverSelectionTimeoutMS: 10000
+        });
+
+        console.log("Connected to MongoDB Atlas");
+
+        await initDB();
+
+    } catch (err) {
+        console.error("Initialization failed:", err);
+    } finally {
+        await mongoose.connection.close();
+        console.log("Database connection closed");
     }
-
-    await main();
-    await initDB();
-
-  } 
-  catch (err) {
-    console.error("Initialization failed:", err);
-  } 
-  finally {
-    await mongoose.connection.close();
-  }
 }
 
 start();
-
