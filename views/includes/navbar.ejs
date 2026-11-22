@@ -42,7 +42,7 @@
                 type="search"
                 name="search"
                 placeholder="Search Destination"
-                value="<%= searchQuery || '' %>"
+                value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
             />
 
             <button class="btn btn-search" type="submit">
