@@ -35,12 +35,21 @@
       </div>
 
       <!-- searchbar -->
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 search-input" type="search" placeholder="Search Destination"/>
-          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+    <div class="navbar-nav ms-auto">
+        <form class="d-flex" action="/listings" method="GET" role="search">
+            <input
+                class="form-control me-2 search-input"
+                type="search"
+                name="search"
+                placeholder="Search Destination"
+                value="<%= searchQuery || '' %>"
+            />
+
+            <button class="btn btn-search" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>Search
+            </button>
         </form>
-      </div>
+    </div>
 
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Add your place</a>

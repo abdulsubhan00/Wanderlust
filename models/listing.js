@@ -53,6 +53,38 @@ const listingSchema = new Schema({
             required : true
         }
     },
+    tags: {
+        type: [{
+            type: String,
+            enum: [
+                "Rooms",
+                "Iconic Cities",
+                "Hills",
+                "Castles",
+                "Pools",
+                "Camping",
+                "Farms",
+                "Arctic",
+                "Domes",
+                "Boats"
+            ]
+        }],
+        default: [],
+        validate: [
+            {
+                validator: function (value) {
+                    return value.length >= 1;
+                },
+                message: "Please select at least one tag."
+            },
+            {
+                validator: function (value) {
+                    return value.length <= 2;
+                },
+                message: "You can select a maximum of 2 tags."
+            }
+        ]
+    },
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

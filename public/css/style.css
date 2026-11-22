@@ -116,3 +116,50 @@ body{
     height: 400px;
     width: 80vh;
 }
+
+/* tags */
+
+.tag-section {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+
+.tag-heading {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.tag-btn {
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.available-tag {
+    background-color: white;
+    border: 1px solid #aaa;
+    color: black;
+}
+
+.available-tag:hover {
+    background-color: #eee;
+}
+
+.selected-tag {
+    background-color: #dbeafe;
+    border: 1px solid #2563eb;
+    color: #1d4ed8;
+}
+
+.selected-tag:hover {
+    background-color: #bfdbfe;
+}

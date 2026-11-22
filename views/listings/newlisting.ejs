@@ -4,7 +4,7 @@
             <br>
             <h3>Create new listing</h3>
             <br>
-            <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+            <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data" id="listing-form" data-selected-tags="[]">
                 <div class="mb-3">
                     <label for="title" class="form-label"><b>Title</b></label>
                     <input name="listing[title]" type="text" class="form-control" placeholder="Enter the Title" id="title" required>
@@ -40,9 +40,33 @@
                     <input name="listing[location]" type="text" class="form-control" placeholder="Enter location" id="location" required>
                     <div class="invalid-feedback">Location is Mandatory</div>
                 </div>
+
+<!-- Available Tags and Your Tags -->
+                <div class="mb-4">
+                    <label class="form-label"><b>Select what best describes your place</b></label>
+
+                    <div class="tag-section">
+                        <p class="tag-heading">Available Tags</p>
+                        <div id="available-tags" class="tag-container"></div>
+                    </div>
+
+                    <div class="tag-section mt-3">
+                        <p class="tag-heading">Your Tags (Select at least 1, maximum 2)</p>
+                        <div id="selected-tags" class="tag-container"></div>
+                    </div>
+
+                    <div id="tag-warning" class="text-danger mt-2" style="display:none;">
+                        Please select at least one tag.
+                    </div>
+
+                    <div id="tag-limit-warning" class="text-danger mt-2" style="display:none;">
+                        You can select a maximum of 2 tags.
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-dark add-btn">Add</button>
                 <br><br>
             </form>
         </div>
     </div>
     <script src="/js/script.js"></script>
+    <script src="/js/tags.js"></script>

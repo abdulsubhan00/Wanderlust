@@ -5,9 +5,39 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-module.exports.index = async (req,res)=>{
-    const everylisting= await Listing.find({});
-    res.render("listings/index.ejs",{everylisting});
+module.exports.index = async (req, res) => {
+    const { category, search } = req.query;
+
+    let filter = {};
+
+    // Category filtering
+    if (category) {
+        filter.tags = category;
+    }
+
+    // Exact location or country search (case-insensitive)
+    if (search && search.trim()) {
+        const searchValue = search.trim();
+
+        // Escape special regex characters
+        const escapedSearch = searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        const exactMatch = new RegExp(`^${escapedSearch}$`, "i");
+
+        filter.$or = [
+            { location: exactMatch },
+            { country: exactMatch }
+        ];
+    }
+
+    const everylisting = await Listing.find(filter);
+
+    res.render("listings/index.ejs", {
+        everylisting,
+        selectedCategory: category,
+        searchQuery: search || "",
+        noResults: Boolean(search && search.trim() && everylisting.length === 0)
+    });
 };
 
 module.exports.newListingform = (req,res)=>{
@@ -47,22 +77,31 @@ module.exports.editform = async(req,res)=>{
     res.render("listings/edit.ejs",{listing,ogimage});
 };
 
+
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
 
-    let listing=await Listing.findByIdAndUpdate(id,{ ...req.body.listing });
+    let listing = await Listing.findByIdAndUpdate(
+        id,
+        { ...req.body.listing },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
 
-    if(req.file){
+    if (req.file) {
         let url = req.file.path;
         let filename = req.file.filename;
 
-        listing.image = {url,filename}
+        listing.image = { url, filename };
         await listing.save();
     }
 
     req.flash("success", "Listing updated successfully");
     res.redirect(`/listings/${id}`);
 };
+
 
 module.exports.deleteListing = async(req,res)=>{
     let{id} = req.params;

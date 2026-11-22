@@ -59,4 +59,19 @@
 
     window.addEventListener("blur", resetEyes);
     document.addEventListener("pointerleave", resetEyes);
+
+    // Close mascot eyes when password field is focused
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+
+    passwordInputs.forEach((input) => {
+
+        input.addEventListener("focus", () => {
+            document.body.classList.add("password-focused");
+        });
+
+        input.addEventListener("blur", () => {
+            document.body.classList.remove("password-focused");
+        });
+
+    });
 })();

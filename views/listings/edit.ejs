@@ -2,7 +2,7 @@
     <div class="row mt-3">
         <div class="col-8 offset-2">
             <h3>Edit listing</h3>
-            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
+            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data" id="listing-form" data-selected-tags='<%= JSON.stringify(listing.tags || []) %>'">
                 <div class="mb-3">
                     <label for="title" class="form-label"><b>Title</b></label>
                     <input name="listing[title]" type="text" class="form-control" value="<%= listing.title %>" id="title" required>
@@ -40,12 +40,41 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="location" class="form-label"><b>Title</b></label>
+                    <label for="location" class="form-label"><b>Location</b></label>
                     <input name="listing[location]" type="text" class="form-control" value="<%= listing.location %>" id="location" required>
                     <div class="invalid-feedback">Location is Mandatory</div>
+                </div>
+
+                <!-- Available Tags and Your Tags -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        <b>Select what best describes your place</b>
+                    </label>
+
+                    <div class="tag-section">
+                        <p class="tag-heading">Available Tags</p>
+                        <div id="available-tags" class="tag-container"></div>
+                    </div>
+
+                    <div class="tag-section mt-3">
+                        <p class="tag-heading">
+                            Your Tags (Select at least 1, maximum 2)
+                        </p>
+                        <div id="selected-tags" class="tag-container"></div>
+                    </div>
+
+                    <div id="tag-warning" class="text-danger mt-2" style="display:none;">
+                        Please select at least one tag.
+                    </div>
+
+                    <div id="tag-limit-warning" class="text-danger mt-2" style="display:none;">
+                        You can select a maximum of 2 tags.
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-dark add-btn edit-btn">Update</button>
                 <br><br>
             </form>
         </div>
     </div>
+    <script src="/js/script.js"></script>
+    <script src="/js/tags.js"></script>

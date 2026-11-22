@@ -21,6 +21,7 @@ const listingRouter = require("./routes/listingRoute.js");
 const reviewRouter=require("./routes/reviewsRoute.js");
 const userRouter=require("./routes/userRoute.js");
 
+const localDB = "mongodb://127.0.0.1:27017/wanderlust";
 async function main(){
     await mongoose.connect(db_url);
 }
@@ -80,6 +81,7 @@ app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
+    res.locals.searchQuery = req.query.search || "";
     next();
 });
 
